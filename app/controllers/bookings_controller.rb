@@ -1,7 +1,9 @@
 class BookingsController < ApplicationController
   def create
     room = Room.find_by(params[:room_id])
-    if room_vacant(room)
+    start_date = Date.parse(params[:start])
+    end_date = Date.parse(params[:end])
+    if room.vacant?(start_date..end_date)
       booking = Booking.new(booking_params)
       booking.save!
       render json: { message: 'Booking created.' }, status: :ok
@@ -11,10 +13,6 @@ class BookingsController < ApplicationController
   end
 
   private
-
-  def room_vacant(room) # TEMP
-    room.vacant?(params[:start], params[:end])
-  end
 
   def booking_params
     params.permit(:start, :end, :room_id)
