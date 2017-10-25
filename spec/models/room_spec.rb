@@ -1,6 +1,7 @@
-require 'rails_helper'
+require "rails_helper"
 
 RSpec.describe Room, type: :model do
+  # Due to lack of spec I just extracted examples by brute force
   examples = [
     ["2017-01-01", "2017-01-01", "2017-01-01", "2017-01-01", false],
     ["2017-01-01", "2017-01-01", "2017-01-01", "2017-01-02", false],
@@ -447,8 +448,9 @@ RSpec.describe Room, type: :model do
     [Date.parse(s1), Date.parse(e1), Date.parse(s2), Date.parse(e2), r]
   }
 
-  examples.each do |s1,e1,s2,e2,r|
-    it "#{s1}..#{e1} vs #{s2}..#{e2} expected #{r}" do
+  it "brute force validation" do
+    examples.each do |s1,e1,s2,e2,r|
+    # it "#{s1}..#{e1} vs #{s2}..#{e2} expected #{r}" do
       # Stupid brute force test
       room = Room.create(number: 1, size: 1)
       room.bookings.create(start: s2, end: e2)
